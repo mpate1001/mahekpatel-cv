@@ -70,7 +70,7 @@ Single-page with smooth scroll navigation + dedicated project detail pages.
 - Two-column layout (photo left, bio right) - stacks on mobile
 - Professional headshot with subtle data-themed frame
 - 2-3 paragraphs: current focus, professional identity, what drives you
-- Animated stats: "7+ years building software", "MSDS @ UNC Chapel Hill"
+- Animated stats: "7+ years building software", "MADS @ UNC Chapel Hill"
 - Social links row (GitHub, LinkedIn, email)
 
 ### Experience
