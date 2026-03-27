@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Github, Linkedin, Mail, Send, Check, Copy } from "lucide-react";
+import { Github, Linkedin, Mail, Send, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const EMAIL = "MPPATEL12@gmail.com";
@@ -38,7 +38,6 @@ export function Contact() {
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000);
     } catch {
-      // Fallback: try mailto if clipboard fails
       window.location.href = `mailto:${EMAIL}`;
     }
   };
@@ -79,47 +78,47 @@ export function Contact() {
       <div className="section-container">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto text-center"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4 }}
+          className="max-w-2xl mx-auto"
         >
-          {/* Section Header */}
-          <h2 className="heading-2 text-dark-50 mb-4">
-            <span className="text-accent-400 font-mono text-xl mr-2">06.</span>
-            Get In Touch
-          </h2>
-          <p className="text-dark-300 mb-8">
+          <div className="border-l-4 border-accent pl-6 mb-4">
+            <h2 className="heading-2 text-fg">
+              <span className="text-accent font-mono text-base mr-2 font-bold">05 —</span>
+              Get In Touch
+            </h2>
+          </div>
+          <p className="text-fg-muted mb-8">
             I&apos;m always open to discussing new opportunities, interesting
             projects, or just chatting about data science and software
             engineering.
           </p>
 
           {/* Social Links */}
-          <div className="flex justify-center gap-4 mb-12 relative">
+          <div className="flex gap-3 mb-12 relative">
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={link.label === "Email" ? handleEmailClick : undefined}
                 {...(link.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-                className="p-4 bg-dark-800 hover:bg-dark-700 text-dark-300 hover:text-accent-400 rounded-lg transition-colors relative"
+                className="p-4 border-2 border-fg text-fg hover:border-accent hover:text-accent transition-colors"
                 aria-label={link.label}
               >
                 <link.icon size={24} />
               </a>
             ))}
-            {/* Email copied toast */}
             <AnimatePresence>
               {emailCopied && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-accent-600 text-white text-sm font-medium rounded-lg whitespace-nowrap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute -bottom-12 left-0 flex items-center gap-2 px-4 py-2 border-2 border-accent bg-bg text-accent text-sm font-bold"
                 >
                   <Check size={16} />
-                  Email copied to clipboard!
+                  EMAIL COPIED
                 </motion.div>
               )}
             </AnimatePresence>
@@ -127,37 +126,29 @@ export function Contact() {
 
           {/* Contact Form */}
           {submitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="p-8 bg-dark-800/50 rounded-xl border border-accent-500/50"
-            >
-              <p className="text-accent-400 font-medium">
+            <div className="p-8 border-2 border-accent">
+              <p className="text-accent font-bold uppercase tracking-widest">
                 Thanks for reaching out! I&apos;ll get back to you soon.
               </p>
-            </motion.div>
+            </div>
           ) : submitError ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="p-8 bg-dark-800/50 rounded-xl border border-red-500/50"
-            >
-              <p className="text-red-400 font-medium mb-4">
+            <div className="p-8 border-2 border-accent">
+              <p className="text-accent font-bold mb-4">
                 Something went wrong. Please try again or email me directly.
               </p>
               <button
                 onClick={() => setSubmitError(false)}
-                className="px-4 py-2 bg-accent-600 hover:bg-accent-500 text-white font-medium rounded-lg transition-colors"
+                className="px-4 py-2 border-2 border-fg text-fg font-bold uppercase text-sm hover:bg-fg hover:text-bg transition-colors"
               >
                 Try Again
               </button>
-            </motion.div>
+            </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 text-left">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-dark-300 mb-2"
+                  className="block text-xs font-mono font-bold uppercase tracking-widest text-fg mb-2"
                 >
                   Name
                 </label>
@@ -169,14 +160,14 @@ export function Contact() {
                   onChange={(e) =>
                     setFormState({ ...formState, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-dark-100 placeholder-dark-500 focus:outline-none focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 bg-bg border-2 border-fg text-fg placeholder-fg-subtle focus:outline-none focus:border-accent transition-colors"
                   placeholder="Your name"
                 />
               </div>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-dark-300 mb-2"
+                  className="block text-xs font-mono font-bold uppercase tracking-widest text-fg mb-2"
                 >
                   Email
                 </label>
@@ -188,14 +179,14 @@ export function Contact() {
                   onChange={(e) =>
                     setFormState({ ...formState, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-dark-100 placeholder-dark-500 focus:outline-none focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 bg-bg border-2 border-fg text-fg placeholder-fg-subtle focus:outline-none focus:border-accent transition-colors"
                   placeholder="your@email.com"
                 />
               </div>
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-dark-300 mb-2"
+                  className="block text-xs font-mono font-bold uppercase tracking-widest text-fg mb-2"
                 >
                   Message
                 </label>
@@ -207,7 +198,7 @@ export function Contact() {
                   onChange={(e) =>
                     setFormState({ ...formState, message: e.target.value })
                   }
-                  className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg text-dark-100 placeholder-dark-500 focus:outline-none focus:border-accent-500 transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-bg border-2 border-fg text-fg placeholder-fg-subtle focus:outline-none focus:border-accent transition-colors resize-none"
                   placeholder="Your message..."
                 />
               </div>
@@ -215,18 +206,18 @@ export function Contact() {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "w-full inline-flex items-center justify-center gap-2 px-6 py-3 font-medium rounded-lg transition-colors",
+                  "w-full inline-flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-widest text-sm border-2 transition-colors",
                   isSubmitting
-                    ? "bg-dark-700 text-dark-500 cursor-not-allowed"
-                    : "bg-accent-600 hover:bg-accent-500 text-white"
+                    ? "border-fg-subtle text-fg-subtle cursor-not-allowed"
+                    : "border-accent bg-accent text-white hover:bg-accent-dark"
                 )}
               >
                 {isSubmitting ? (
-                  "Sending..."
+                  "SENDING..."
                 ) : (
                   <>
                     Send Message
-                    <Send size={18} />
+                    <Send size={16} />
                   </>
                 )}
               </button>
