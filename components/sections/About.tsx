@@ -11,7 +11,7 @@ const EMAIL = "MPPATEL12@gmail.com";
 const stats = [
   { label: "Years Experience", value: "7+" },
   { label: "Currently", value: "MADS @ UNC" },
-  { label: "Focus", value: "Data Science" },
+  { label: "Focus", value: "Data Platforms" },
 ];
 
 const socialLinks = [
@@ -41,98 +41,86 @@ export function About() {
   };
 
   return (
-    <section id="about" className="section-padding bg-dark-900/50">
+    <section id="about" className="section-padding bg-bg-alt">
       <div className="section-container">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4 }}
         >
-          {/* Section Header */}
-          <h2 className="heading-2 text-dark-50 mb-12">
-            <span className="text-accent-400 font-mono text-xl mr-2">01.</span>
+          <h2 className="heading-2 text-fg mb-12">
             About Me
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Photo */}
             <div className="relative">
-              <div className="relative w-64 h-64 mx-auto">
+              <div className="relative w-64 h-64 mx-auto border-2 border-fg">
                 <Image
                   src="/images/headshot.jpg"
                   alt="Mahek Patel"
                   fill
-                  className="object-cover rounded-lg"
+                  className="object-cover"
                   priority
                   unoptimized
                 />
-                {/* Decorative border */}
-                <div className="absolute inset-0 border-2 border-accent-500 rounded-lg translate-x-4 translate-y-4 -z-10" />
               </div>
             </div>
 
-            {/* Bio */}
             <div className="space-y-4">
-              <p className="text-dark-300 leading-relaxed">
+              <p className="text-fg-muted leading-relaxed">
                 Software Engineer specializing in event-driven data platforms.
                 I build end-to-end data pipelines ingesting from enterprise apps,
                 normalizing, and publishing to Kafka for real-time consumption.
               </p>
-              <p className="text-dark-300 leading-relaxed">
+              <p className="text-fg-muted leading-relaxed">
                 Currently pursuing my Master&apos;s in Data Science at UNC Chapel Hill
                 while working at Duke Energy. With 6+ years across software and data
                 engineering, I ship production-grade services with full-stack
                 observability, optimized for reliability and throughput.
               </p>
-              <p className="text-dark-300 leading-relaxed">
+              <p className="text-fg-muted leading-relaxed">
                 My background spans Java, Python, AWS, SQL, and CI/CD. I focus on
                 building systems that don&apos;t just work in development, but scale
                 and perform in production with p99 latency in mind.
               </p>
 
-              {/* Stats */}
-              <div className="flex flex-wrap gap-6 pt-4">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="text-2xl font-bold text-accent-400">
+              <div className="flex flex-wrap gap-6 pt-4 border-t-2 border-fg">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="text-2xl font-black text-accent">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-dark-500">{stat.label}</div>
-                  </motion.div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-fg-subtle">
+                      {stat.label}
+                    </div>
+                  </div>
                 ))}
               </div>
 
-              {/* Social Links */}
-              <div className="flex gap-4 pt-4 relative">
+              <div className="flex gap-3 pt-4 relative">
                 {socialLinks.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
                     onClick={link.label === "Email" ? handleEmailClick : undefined}
                     {...(link.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-                    className="p-2 text-dark-400 hover:text-accent-400 transition-colors"
+                    className="p-3 border-2 border-fg text-fg hover:border-accent hover:text-accent transition-colors"
                     aria-label={link.label}
                   >
-                    <link.icon size={24} />
+                    <link.icon size={20} />
                   </a>
                 ))}
                 <AnimatePresence>
                   {emailCopied && (
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute -bottom-10 left-0 flex items-center gap-2 px-3 py-1.5 bg-accent-600 text-white text-sm font-medium rounded-lg whitespace-nowrap"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute -bottom-12 left-0 flex items-center gap-2 px-4 py-2 border-2 border-accent bg-bg text-accent text-sm font-bold"
                     >
                       <Check size={14} />
-                      Copied!
+                      COPIED
                     </motion.div>
                   )}
                 </AnimatePresence>
