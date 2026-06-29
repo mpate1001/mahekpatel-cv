@@ -18,7 +18,7 @@ export const education: Education[] = [
     field: "Data Science",
     startDate: "2024",
     endDate: "May 2026",
-    inProgress: true,
+    inProgress: false,
     highlights: ["Machine Learning", "Statistical Analysis", "Data Engineering"],
   },
   {
